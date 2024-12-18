@@ -3,7 +3,7 @@ import { get } from 'http';
 import { AService } from './a.service';
 import { SignUpDto } from './signup.dto';
 import { SignInDto } from './signin.dto';
-import { AddCompaniesDto, AddTransactionDto, UpdateCompanyInfoDto, UpdatePersonalInfoDto } from './validation.dto';
+import { AddCompaniesDto, AddOwnTransactionDto, AddTransactionDto, UpdateCompanyInfoDto, UpdatePersonalInfoDto } from './validation.dto';
 @Controller('a')
 export class AController {
     constructor(private readonly aService: AService)
@@ -90,7 +90,25 @@ export class AController {
      }
 
     //add own transactions
+    @Post("/addOwnTransactionsList")
+    @UsePipes(new ValidationPipe())
+    addOwntransaction(@Body() Data:AddOwnTransactionDto)
+    {
+            return this.aService.addOwntransaction(Data);
+    }
 
+    
+    @Get("/viewOwnAllTransaction")
+    viewAllOwntransaction(Data)
+    {
+        return this.aService.viewAllOwntransaction(Data)
+    }
+
+    @Delete("/deleteaccount/:id")
+    delid(@Param('id') id)
+    {
+         return this.aService.delete_id(id)
+    }
 
 
 

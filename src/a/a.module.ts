@@ -6,9 +6,11 @@ import { DataSource } from 'typeorm';
 import { Investor } from './a.entity'
 import { Companies } from './a.entity';
 import { Transaction } from './a.entity';
+import { OwnTransaction } from './a.entity';
+
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Investor,Companies,Transaction]),
+  imports: [TypeOrmModule.forFeature([Investor,Companies,Transaction,OwnTransaction]),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',

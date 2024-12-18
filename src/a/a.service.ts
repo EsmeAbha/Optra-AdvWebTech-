@@ -4,7 +4,7 @@ import { Get } from '@nestjs/common';
 import { Post } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository  } from 'typeorm';
-import { Companies, Investor ,Transaction} from './a.entity';
+import { Companies, Investor ,Transaction,OwnTransaction} from './a.entity';
 
 @Injectable()
 export class AService {
@@ -14,6 +14,8 @@ export class AService {
     private TRepo: Repository<Transaction> ,
     @InjectRepository(Investor) 
     private IRepo: Repository<Investor> ,
+    @InjectRepository(OwnTransaction) 
+    private OTRepo: Repository<OwnTransaction> ,
     @InjectRepository(Companies)
     private CRepo: Repository<Companies>) {}
 
@@ -59,7 +61,7 @@ export class AService {
   signup(Data) {
     return this.IRepo.save(Data);
   }
-
+  //signIn
   async signin(Data) {
     try {
       const { email, password } = Data;
@@ -84,7 +86,7 @@ export class AService {
       console.log('Sign-in error:', error.message);
     }
   }
-
+  //companies
   companies(Data) {
     return this.CRepo.save(Data);
   }
@@ -96,7 +98,7 @@ export class AService {
   viewCompaniesByName(name){
     return this.CRepo.findBy({name : Like(`%${name}%`)})
   }
-
+  //overall transactions
   addtransactionlist(Data)
   {
     return this.TRepo.save(Data); 
@@ -108,6 +110,22 @@ export class AService {
 
   viewtransactionbyname(transaction_name){
     return this.TRepo.findBy({transaction_name : Like(`%${transaction_name}%`)})
+  }
+  //own transaction
+  addOwntransaction(Data)
+  {
+    return this.OTRepo.save(Data); 
+  }
+
+  viewAllOwntransaction(Data)
+  {
+    return this.OTRepo.find();
+  }
+
+  //delete account
+  delete_id(id)
+  {
+     return this.IRepo.delete(id)
   }
 
 

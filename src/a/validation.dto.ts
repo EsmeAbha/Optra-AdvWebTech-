@@ -80,3 +80,24 @@ export class AddTransactionDto{
     
     com_location:string;
 }
+
+export class AddOwnTransactionDto{
+
+    @IsNotEmpty({message : "Transaction name cannot be empty"})
+    own_transaction_name: string;
+
+    @IsNotEmpty({message : "Transaction name cannot be empty"})
+    transaction_amount: string;
+    
+    @IsNotEmpty({message : "Transaction name cannot be empty"})
+    currency: string;
+    
+    @IsNotEmpty({message : "Transaction name cannot be empty"})
+    t_date:string
+    
+    @IsNotEmpty({message : "Transaction name cannot be empty"})
+    type:string
+    
+    @IsNotEmpty({message : "Transaction name cannot be empty"})
+    method:string
+}

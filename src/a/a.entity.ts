@@ -98,3 +98,28 @@ export class Transaction {
   com_location:string
 
 }
+
+@Entity()
+export class OwnTransaction {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ length: 500 })
+  own_transaction_name: string;
+
+  @Column({ length: 500 })
+  transaction_amount: string;
+
+  @Column({ length: 300 })
+  currency: string;
+
+  @Column({length:100 , nullable : true})
+  t_date:string
+
+  @Column({length:200, nullable : true })
+  type:string
+
+  @Column({length:200, nullable : true})
+  method:string
+
+}
