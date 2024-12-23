@@ -1,14 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Controller } from '@nestjs/common';
-import { Get } from '@nestjs/common';
-import { Post } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository  } from 'typeorm';
-import { Companies, Investor ,Transaction,OwnTransaction} from './a.entity';
+import {  Investor } from '../database/database.entity';
+import { Companies } from '../database/database.entity'
+import { Transaction } from '../database/database.entity'
+import { OwnTransaction } from '../database/database.entity'
 
 @Injectable()
 export class AService {
-
+  private dynamicSecrets = new Map<number, string>();
   constructor(
     @InjectRepository(Transaction) 
     private TRepo: Repository<Transaction> ,
@@ -17,17 +18,22 @@ export class AService {
     @InjectRepository(OwnTransaction) 
     private OTRepo: Repository<OwnTransaction> ,
     @InjectRepository(Companies)
-    private CRepo: Repository<Companies>) {}
+    private CRepo: Repository<Companies>)
+    {}
 
-  //validation
-  //signUp validation
-    signUpValidation(data){
 
-    }
-  //signIn validation
-    signInValidation(Data){
+      // Logout function
+    async logout(userId: number): Promise<void> {
+      console.log("logout: ", this.dynamicSecrets)
 
-    }
+      if (this.dynamicSecrets.has(userId)) {
+        this.dynamicSecrets.delete(userId);
+        console.log("login: ",this.dynamicSecrets)
+
+      } else {
+        throw new NotFoundException('Session not found');
+      }
+  }  
 
 //update Personal info
   async updatePersonalInfo(Data) 
@@ -58,9 +64,7 @@ export class AService {
   }
 
   //database
-  signup(Data) {
-    return this.IRepo.save(Data);
-  }
+
   //signIn
   async signin(Data) {
     try {

@@ -2,28 +2,14 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AController } from './a.controller';
 import { AService } from './a.service';
-import { DataSource } from 'typeorm';
-import { Investor } from './a.entity'
-import { Companies } from './a.entity';
-import { Transaction } from './a.entity';
-import { OwnTransaction } from './a.entity';
+
+import { AuthModule } from 'src/auth/auth.module';
+import { Companies, Investor, OwnTransaction, Transaction } from 'src/database/database.entity';
+
 
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Investor,Companies,Transaction,OwnTransaction]),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'abha',
-      database: 'optra',
-      entities: [
-          __dirname + '/../**/*.entity{.ts,.js}',
-      ],
-      synchronize: true,
-    })
-  ],
+  imports: [ TypeOrmModule.forFeature([Companies, Investor, Transaction, OwnTransaction ])  ],
   controllers: [AController],
   providers: [AService],
 })

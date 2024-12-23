@@ -6,6 +6,7 @@ import { SignInDto } from './signin.dto';
 import { AddCompaniesDto, AddOwnTransactionDto, AddTransactionDto, UpdateCompanyInfoDto, UpdatePersonalInfoDto } from './validation.dto';
 @Controller('a')
 export class AController {
+    
     constructor(private readonly aService: AService)
     {
 
@@ -25,7 +26,24 @@ export class AController {
         const {full_name,email,password,confirm_pass}=Data;
         if(password==confirm_pass)
         {
-            return this.aService.signup({full_name : full_name,email : email,password :password});
+           // return this.aService.signup({full_name : full_name,email : email,password :password});
+        }
+        
+    }
+
+    @Post('logout') // Accessible without authentication
+    async logout(@Body() body) {
+        console.log(body.id)
+      return this.aService.logout(body.id);
+    }
+    
+    @Post("/otp")
+    OTPVerify(@Body() Data)
+    {
+        const {full_name,email,password,confirm_pass}=Data;
+        if(password==confirm_pass)
+        {
+           // return this.aService.signup({full_name : full_name,email : email,password :password});
         }
         
     }
