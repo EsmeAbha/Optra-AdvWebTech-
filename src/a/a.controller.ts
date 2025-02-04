@@ -31,12 +31,12 @@ export class AController {
         
     }
 
-    @Post('logout') // Accessible without authentication
+    @Post('logout')
     async logout(@Body() body) {
         console.log(body.id)
       return this.aService.logout(body.id);
     }
-    
+
     @Post("/otp")
     OTPVerify(@Body() Data)
     {
@@ -58,16 +58,16 @@ export class AController {
     //update personal info
     @Post("/updatePersonalInfo")
     @UsePipes(new ValidationPipe())
-    updatePersonalInfo(@Body() Data:UpdatePersonalInfoDto)
+    async updatePersonalInfo(@Body() Data:UpdatePersonalInfoDto)
     {
-        return this.aService.updatePersonalInfo(Data)
+        return await this.aService.updatePersonalInfo(Data)
     }
      //update company info
     @Post("/updateCompanyInfo")
     @UsePipes(new ValidationPipe())
-    updateCompanyInfo(@Body() Data:UpdateCompanyInfoDto)
+    async updateCompanyInfo(@Body() Data:UpdateCompanyInfoDto)
     {
-        return this.aService.updateCompanyInfo(Data)
+        return await this.aService.updateCompanyInfo(Data)
     }
     //add companies
     @Post("/addCompanies")

@@ -86,18 +86,18 @@ export class AddOwnTransactionDto{
     @IsNotEmpty({message : "Transaction name cannot be empty"})
     own_transaction_name: string;
 
-    @IsNotEmpty({message : "Transaction name cannot be empty"})
+    @IsNotEmpty({message : "Transaction amount cannot be empty"})
     transaction_amount: string;
     
-    @IsNotEmpty({message : "Transaction name cannot be empty"})
+    @IsNotEmpty({message : "Transaction currency cannot be empty"})
     currency: string;
     
-    @IsNotEmpty({message : "Transaction name cannot be empty"})
+    @IsNotEmpty({message : "Transaction date cannot be empty"})
     t_date:string
     
-    @IsNotEmpty({message : "Transaction name cannot be empty"})
+    @IsNotEmpty({message : "Transaction type cannot be empty"})
     type:string
     
-    @IsNotEmpty({message : "Transaction name cannot be empty"})
+    @IsNotEmpty({message : "Transaction method cannot be empty"})
     method:string
 }

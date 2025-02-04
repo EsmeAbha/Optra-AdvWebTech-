@@ -17,20 +17,19 @@ export class SignupService {
     this.transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
-        user: "rizben410@gmail.com",
-        pass: "rzwb rjjn igmx mqpf",
+        user: "esmechowdhuryabha@gmail.com",
+        pass: "gkxu vsuw nfok coqu",
       },
     });
   }
 
   async initiateSignUp(name: string, email: string, password: string) {
-    const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Generate 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString(); 
 
-    // Store in TempSignupDataService
     this.tempSignupDataService.set(email, { name, email, password, otp });
 
     const mailOptions = {
-      from: "rizben410@gmail.com",
+      from: "esmechowdhuryabha@gmail.com",
       to: email,
       subject: 'Your OTP Code',
       text: `Hello ${name},\n\nYour OTP is ${otp}. Please use this to complete your registration.\n\nThank you!`,
@@ -56,14 +55,15 @@ export class SignupService {
       throw new Error('Invalid OTP');
     }
 
-    // OTP verified, move data to the database
+    // OTP verify
+
     await this.IRepo.save({
       full_name: tempData.name,
       email: tempData.email,
       password: tempData.password,
     });
 
-    this.tempSignupDataService.delete(email); // Remove from temporary store
+    this.tempSignupDataService.delete(email); 
     return { message: 'Sign-up successful', user: { name: tempData.name, email: tempData.email } };
   }
 }

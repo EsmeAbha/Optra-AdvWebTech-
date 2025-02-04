@@ -30,9 +30,7 @@ import {
       if (!token) {
         throw new UnauthorizedException();
       }
-    //   console.log("inside canactivate: ", this.tokenBlacklist)
 
-      // Check if token is blacklisted
       if (this.blacklistService.isTokenBlacklisted(token)) {
         throw new UnauthorizedException('Token has been invalidated');
 
@@ -42,7 +40,7 @@ import {
         const payload = await this.jwtService.verifyAsync(token, {
           secret: jwtConstants.secret,
         });
-        request['user'] = payload; // Attach user to the request
+        request['user'] = payload; 
       } catch {
         throw new UnauthorizedException('Invalid or expired token');
       }
